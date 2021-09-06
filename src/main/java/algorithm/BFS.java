@@ -96,11 +96,43 @@ public class BFS {
     }
 
 
+    //确定连通分量个数
+    public int getConnect(int[][]graph){
+        HashSet<Integer> visited = new HashSet<>();
+        Queue<Integer> q = new LinkedList<>();
+        int count = 0;
+        for(int i = 0; i < graph.length; i ++){
+            if(!visited.contains(i)){
+                count ++;
+                visited.add(i);
+                q.offer(i);
+                while(!q.isEmpty()){
+                    int sz = q.size();
+                    for(int k = 0; k < sz; k ++){
+                        int cur = q.poll();
+                        if(visited.size() == graph.length){
+                            return count;
+                        }
+                        for(int m = 0; m < graph.length; m ++){
+                            if(graph[cur][m] == 1){
+                                if(!visited.contains(m)){
+                                    visited.add(m);
+                                    q.offer(m);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         BFS b = new BFS();
-        int[][] routes = new int[][]{{1, 2, 7},{3, 6, 7}};
-        int dist = b.numBusesToDestination(routes, 1, 6);
-        System.out.println(dist);
+        int[][] graph = new int[][]{{0, 1, 1}, {1, 0, 0}, {1, 0, 0}};
+        int count = b.getConnect(graph);
+        System.out.println(count);
     }
 }
 
