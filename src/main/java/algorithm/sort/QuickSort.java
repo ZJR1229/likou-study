@@ -1,5 +1,6 @@
 package algorithm.sort;
 
+
 public class QuickSort {
 
     /**
@@ -43,6 +44,9 @@ public class QuickSort {
             System.out.println(nums[i]);
         }
     }
+
+    //  我是王八蛋
+
 
 
     public static void main(String[] args) {
