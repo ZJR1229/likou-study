@@ -45,9 +45,6 @@ public class QuickSort {
         }
     }
 
-    //  我是王八蛋
-
-
 
     public static void main(String[] args) {
         QuickSort s = new QuickSort();

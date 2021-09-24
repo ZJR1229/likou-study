@@ -7,60 +7,59 @@ public class Question_1 {
     public Node transform(Node node){
         Node midNode = getMid(node);
         Node reverseNode = reverse(midNode);
-        Node finalNode = merge(node, reverseNode);
-        return finalNode;
+        Node newHead = merge(node, reverseNode);
+        return newHead;
     }
 
 
     // 寻找中间节点
     public Node getMid(Node node){
-        Node ptrSlow = node;
-        Node ptrFast = ptrSlow.next;
-        while(ptrFast != null && ptrFast.next != null){
-            ptrFast = ptrFast.next.next;
-            ptrSlow = ptrSlow.next;
-        }
-        Node next = ptrSlow.next;
-        ptrSlow.next = null;
-        return next;
+       Node ptrSlow = node;
+       Node ptrFast = ptrSlow.next;
+       while(ptrFast != null && ptrFast.next != null){
+           ptrFast = ptrFast.next.next;
+           ptrSlow = ptrSlow.next;
+       }
+       Node next = ptrSlow.next;
+       ptrSlow.next = null;
+       return next;
     }
-
-
-
-
 
     // 将链表逆序
     public Node reverse(Node node){
-        // 定义头节点
-        Node head = new Node();
-        head.next = null;
-        Node ptr = node;
-        while(ptr != null){
-            Node tmp = ptr;
-            ptr = ptr.next;
-            tmp.next = head.next;
-            head.next = tmp;
+        Node newHead = new Node();
+        newHead.next = null;
+        Node cur = node;
+        while(cur != null){
+            Node ptr = cur;
+            cur = cur.next;
+            ptr.next = newHead.next;
+            newHead.next = ptr;
         }
-        return head.next;
+        return newHead.next;
     }
 
     // 合并两个链表,将链表进行合并
     public Node merge(Node node1, Node node2){
-        Node head = node1;
-        Node ptr1 = node1;
-        Node ptr2 = node2;
-        while(true){
-            Node tmp = ptr2;
-            ptr2 = ptr2.next;
-            if(ptr1.next == null){
-                ptr1.next = tmp;
-                break;
-            }
-            tmp.next = ptr1.next;
-            ptr1.next = tmp;
-            ptr1 = tmp.next;
-        }
-        return head;
+       Node newHead = new Node();
+       Node cur = newHead;
+       Node ptr1 = node1;
+       Node ptr2 = node2;
+       while(ptr1 != null && ptr2 != null){
+           cur.next = ptr1;
+           cur = cur.next;
+           ptr1 = ptr1.next;
+           cur.next = ptr2;
+           cur = cur.next;
+           ptr2 = ptr2.next;
+       }
+
+       if(ptr1 == null){
+           cur.next = ptr2;
+       } else{
+           cur.next = ptr1;
+       }
+       return newHead.next;
     }
 
 
@@ -83,10 +82,13 @@ public class Question_1 {
         n1.next = n2;
         n2.next = n3;
         n3.next = n4;
-        n4.next = null;
+        n4.next = n5;
+        n5.next = null;
 
        Node node = q.getMid(n1);
-       q.printNode(node);
+       Node node2 = q.reverse(node);
+       Node node3 = q.merge(n1, node2);
+       q.printNode(node3);
     }
 }
 
